@@ -22,7 +22,7 @@
 }
 
 body {
-  background-color: #35495E;
+  background-color: #3A3F47;
 }
 
 a {

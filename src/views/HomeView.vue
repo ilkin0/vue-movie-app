@@ -16,12 +16,15 @@
 
     <form @submit.prevent="searchMovies()" class="search-box">
       <input type="text" placeholder="What are you looking for?" v-model="search">
-      <input type="submit" value="Search">
+<!--      <input type="submit" value="Search">-->
     </form>
 
     <div class="movies-list">
       <div class="movie" v-for="movie in movies" :key="movie.id">
-        {{ movie.title }}
+        <div class="product-image">
+        <img :src="imgPoster.concat(movie.poster_path)" alt="movie-poster">
+          <div class="type">{{movie.genres_ids}}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -35,6 +38,7 @@ export default {
   setup () {
     const search = ref('')
     const movies = ref([])
+    const imgPoster = env.IMAGE_POSTER_API
 
     const searchMovies = () => {
       if (search.value === '') {
@@ -66,7 +70,8 @@ export default {
     return {
       search,
       movies,
-      searchMovies
+      searchMovies,
+      imgPoster
     }
   }
 }
@@ -125,7 +130,7 @@ export default {
       &[type='text'] {
         width: 100%;
         color: #FFFFFF;
-        background-color: #496583;
+        background-color: #67686D;
         font-size: 20px;
         padding: 10px 16px;
         border-radius: 8px;
@@ -133,7 +138,7 @@ export default {
         transition: 0.4s;
 
         &::placeholder {
-          color: #f3f3f3;
+          color: #3A3F47;
         }
 
         &:focus {
