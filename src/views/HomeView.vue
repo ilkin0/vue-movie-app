@@ -16,15 +16,17 @@
 
     <form @submit.prevent="searchMovies()" class="search-box">
       <input type="text" placeholder="What are you looking for?" v-model="search">
-<!--      <input type="submit" value="Search">-->
+      <!--      <input type="submit" value="Search">-->
     </form>
 
     <div class="movies-list">
       <div class="movie" v-for="movie in movies" :key="movie.id">
-        <div class="product-image">
-        <img :src="imgPoster.concat(movie.poster_path)" alt="movie-poster">
-          <div class="type">{{movie.genres_ids}}</div>
-        </div>
+        <router-link :to="'/movie/' + movie.id">
+          <div class="product-image">
+            <img :src="imgPoster.concat(movie.poster_path)" alt="movie-poster">
+            <div class="type">{{ movie.genres_ids }}</div>
+          </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -33,6 +35,7 @@
 <script>
 import { ref } from 'vue'
 import env from '@/env.js'
+import Swal from 'sweetalert2'
 
 export default {
   setup () {
@@ -42,7 +45,13 @@ export default {
 
     const searchMovies = () => {
       if (search.value === '') {
-        alert('Search is empty')
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Search must not be empty!',
+          footer: '<a href="https://www.youtube.com/watch?v=FqOIlHomdSE">Why do I have this issue?</a>'
+        })
+        window.location.href = 'https://www.youtube.com/watch?v=FqOIlHomdSE'
         throw new Error('Search is empty')
       }
 
